@@ -1,0 +1,35 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Miracle", "Miracle.vcproj", "{1BF2287F-5033-4151-AF3D-9BBC770B66CF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NetGame", "..\Network\NetGame.vcproj", "{01E8C03E-873D-4AD7-9F9C-7D57DC377F1B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SoftRend", "..\Render\Software\SoftRend.vcproj", "{8FE9580A-66E5-44F5-BFF9-E32C07026F9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+		{1BF2287F-5033-4151-AF3D-9BBC770B66CF}.0 = {8FE9580A-66E5-44F5-BFF9-E32C07026F9B}
+		{1BF2287F-5033-4151-AF3D-9BBC770B66CF}.1 = {01E8C03E-873D-4AD7-9F9C-7D57DC377F1B}
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{1BF2287F-5033-4151-AF3D-9BBC770B66CF}.Debug.ActiveCfg = Debug|Win32
+		{1BF2287F-5033-4151-AF3D-9BBC770B66CF}.Debug.Build.0 = Debug|Win32
+		{1BF2287F-5033-4151-AF3D-9BBC770B66CF}.Release.ActiveCfg = Release|Win32
+		{1BF2287F-5033-4151-AF3D-9BBC770B66CF}.Release.Build.0 = Release|Win32
+		{01E8C03E-873D-4AD7-9F9C-7D57DC377F1B}.Debug.ActiveCfg = Debug|Win32
+		{01E8C03E-873D-4AD7-9F9C-7D57DC377F1B}.Debug.Build.0 = Debug|Win32
+		{01E8C03E-873D-4AD7-9F9C-7D57DC377F1B}.Release.ActiveCfg = Release|Win32
+		{01E8C03E-873D-4AD7-9F9C-7D57DC377F1B}.Release.Build.0 = Release|Win32
+		{8FE9580A-66E5-44F5-BFF9-E32C07026F9B}.Debug.ActiveCfg = Debug|Win32
+		{8FE9580A-66E5-44F5-BFF9-E32C07026F9B}.Debug.Build.0 = Debug|Win32
+		{8FE9580A-66E5-44F5-BFF9-E32C07026F9B}.Release.ActiveCfg = Release|Win32
+		{8FE9580A-66E5-44F5-BFF9-E32C07026F9B}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,39 @@
+EXPORTS
+	InitDll
+	CloseDll
+
+	BeginActions
+	EndActions
+
+	GetPosibleVideoModes
+	SetVideoMode
+
+	DrawModel
+	DrawSprite
+
+	DrawBitmap
+	DrawString
+	DrawBackground
+	SetFont
+	SetBackground
+	SetFullClipRectangle
+	SetClipRectangle
+	GetClipRectangle
+	DrawLine
+	DrawSpline
+	DrawBar
+	DrawRectangle
+	SetPixel
+	GetPixel
+
+	AddDynamicLight
+	SetRenderMap
+	RenderWorld
+
+	Clear_VS
+	SetDrawMode
+	GetVirtualScreen
+	Getf
+	Geti
+	Setf
+	Seti
