@@ -14,6 +14,28 @@ A software rendering 3D Engine developed in the late 90s.
 - Basic movement physics
 - Console support
 
+## Screenshots
+
+![Screenshot 1](screenshots/shot01.jpg)
+
+![Screenshot 2](screenshots/shot02.jpg)
+
+![Screenshot 3](screenshots/shot03.jpg)
+
+![Screenshot 3](screenshots/shot04.jpg)
+
+![Screenshot 3](screenshots/shot05.jpg)
+
+![Screenshot 3](screenshots/shot06.jpg)
+
+![Screenshot 3](screenshots/shot07.jpg)
+
+![Screenshot 3](screenshots/shot08.jpg)
+
+![Screenshot 3](screenshots/shot09.jpg)
+
+![Screenshot 3](screenshots/shot10.jpg)
+
 ## Control Keys:
 
 | Key            | Action                     |
