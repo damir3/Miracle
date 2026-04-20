@@ -192,7 +192,7 @@ void	FindEntityState(int num_ent, int time)
 }
 
 void	FindEntitiesState(int time)
-{//	находим состояние функциональных предетов
+{//	find state of functional items
 	for(int i=0; i<map.numdwalls; i++)
 	{
 		FindEntityState(i, time);

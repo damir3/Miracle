@@ -16,7 +16,7 @@ static float	temp_main_matrix[MAX_PORTAL_DEPTH][3][3];
 static float	temp_view_matrix[MAX_PORTAL_DEPTH][3][3];
 static t_plane	temp_frustrum_planes[MAX_PORTAL_DEPTH+1][4];
 static vec3_t	temp_cam_pos[MAX_PORTAL_DEPTH];
-//	матрицы преобразования координат
+//	coordinate transformation matrices
 float	main_matrix[3][3];
 float	view_matrix[3][3];
 vec3_t	cam_pos;
@@ -53,7 +53,7 @@ void	RotateVector1 (vec3_t vec, vec3_t ang)
 {
 	double	sin_, cos_, angle;
     double	x, y, z;
-	// крен
+	// roll
 	angle = ang[1] * pi / 0x8000;
     sin_ = sin(angle);
 	cos_ = cos(angle);
@@ -61,7 +61,7 @@ void	RotateVector1 (vec3_t vec, vec3_t ang)
 	x = -sin_ * vec[2] + cos_ * vec[0];
 	vec[0] = float(x);
 	vec[2] = float(z);
-	// тангаж
+	// pitch
 	angle = ang[0] * pi / 0x8000;
 	sin_ = sin(angle);
 	cos_ = cos(angle);
@@ -69,7 +69,7 @@ void	RotateVector1 (vec3_t vec, vec3_t ang)
 	z = -sin_ * vec[1] + cos_ * vec[2];
 	vec[1] = float(y);
 	vec[2] = float(z);
-	// рыскание
+	// yaw
 	angle = ang[2] * pi / 0x8000;
     sin_ = sin(angle);
 	cos_ = cos(angle);
@@ -80,7 +80,7 @@ void	RotateVector1 (vec3_t vec, vec3_t ang)
 }
 
 void	SetViewInfo (vec3_t pos, vec3_t ang)
-{//	задаем положение и направление камеры
+{//	set camera position and direction
 	VectorCopy(pos, cam_pos);
 	memset(main_matrix, 0, sizeof(main_matrix));
 	main_matrix[0][0] = main_matrix[1][1] = main_matrix[2][2] = 1;
@@ -106,7 +106,7 @@ float	Dist2FromCamera (vec3_t in)
 }
 
 void	ComputeViewFrustrum ()
-{//	расчитываем плоскости, которыми ограничена область видимости камеры
+{//	calculate planes bounding the camera's field of view
 	frustrum_planes[0].normal[0] = float(main_matrix[1][0] - main_matrix[0][0]*ctg_fov);
 	frustrum_planes[0].normal[1] = float(main_matrix[1][1] - main_matrix[0][1]*ctg_fov);
 	frustrum_planes[0].normal[2] = float(main_matrix[1][2] - main_matrix[0][2]*ctg_fov);
@@ -215,7 +215,7 @@ float	det (float *x, float *y, float *z)
 }
 
 float	PointPlaneDist (vec3_t pos, t_plane *plane)
-{	//	находит положение точки относительно плоскости (0, 1)
+{	//	finds position of point relative to plane (0, 1)
 	if (plane->type < 3)
 		return	pos[plane->type] - plane->dist;
 	else
@@ -270,7 +270,7 @@ void	RotateVector (vec3_t vec, vec3_t ang)
 {
 	double	sin_, cos_, angle;
     double	x, y, z;
-	// рыскание
+	// yaw
 	angle = ang[2] * pi / 0x8000;
     sin_ = sin(angle);
 	cos_ = cos(angle);
@@ -278,7 +278,7 @@ void	RotateVector (vec3_t vec, vec3_t ang)
 	y = -sin_ * vec[0] + cos_ * vec[1];
 	vec[0] = float(x);
 	vec[1] = float(y);
-	// тангаж
+	// pitch
 	angle = ang[0] * pi / 0x8000;
 	sin_ = sin(angle);
 	cos_ = cos(angle);
@@ -286,7 +286,7 @@ void	RotateVector (vec3_t vec, vec3_t ang)
 	z = -sin_ * vec[1] + cos_ * vec[2];
 	vec[1] = float(y);
 	vec[2] = float(z);
-	// крен
+	// roll
 	angle = ang[1] * pi / 0x8000;
     sin_ = sin(angle);
 	cos_ = cos(angle);

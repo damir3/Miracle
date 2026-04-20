@@ -59,28 +59,28 @@ void	ProjectVectorToPlane(vec3_t out, vec3_t in, vec3_t norm, vec3_t plane)
 	VectorCopy(in, out);
 	if(dot != 0)	VectorAddScale(out, norm, dot, out);
 }
-//	динамические стены (двери, платформы, триггеры и прочее)
+//	dynamic walls (doors, platforms, triggers, etc.)
 int			numdwalls;
 d_wall_t	dwalls[MAX_MAP_WALLS];
-//	статические стены (стены, не входящие в основную модель)
+//	static walls (walls not included in the main model)
 int			numswalls;
 s_wall_t	swalls[MAX_MAP_WALLS];
-//	номера секторов, в которых находятся предметы
+//	numbers of sectors where items are located
 int			num_ent_sectors;
 ushort		ent_sectors[MAX_ENT_SECTORS];
-//	порталы
+//	portals
 int			num_i_portals;
 t_illusion_portal	i_portals[256];
-//	действия и имена предметов
+//	actions and item names
 int			actions_size;
 char		actions[MAX_ACTIONS_DATA_SIZE];
-//	следы на стенах
+//	tracks on walls
 int			numwallmarks;
 wmark_t		wallmarks[MAX_NUM_WALLMARKS];
-//	текстуры
+//	textures
 int			numtextures;
 t_texture	textures[MAX_NUM_TEXTURES];
-//	туман
+//	fog
 int			numfogs;
 fog_t		fogs[MAX_NUM_FOGS];
 
@@ -91,8 +91,8 @@ static int			load_map_error;
 int		CopyLump (int lump, void **dest, int size)
 {
 	if(load_map_error)	return	0;
-	int		offset = header->lumps[lump].offset; // Смещение
-	int		length = header->lumps[lump].length; // Длина блока
+	int		offset = header->lumps[lump].offset; // Offset
+	int		length = header->lumps[lump].length; // Block length
 	if(length % size)
 	{
 		CPrintf("Error: odd lump[%d] size (size=%d)", lump, length);
@@ -176,7 +176,7 @@ void	FindTargets()
 	for(i=0; i<map.numfaces; i++)
 	{
 		if(map.faces[i].type==-2)
-		{//	если портал
+		{//	if portal
 			int		texnum = map.texinfo[map.faces[i].texinfo].texnum;
 			char	*name = map.tex[texnum].name;
 			for(j=0; j<map.num_i_portals; j++)
@@ -335,7 +335,7 @@ void	LoadMap(char *filename)
 	CPrintf("Loading map \"%s\"", filename);
 	if(pf.ExtractByName("bsp.dat", (char **)&header)<=0)	return;
 
-	if(strcmp(header->id,"BSP карта      "))
+	if(strcmp(header->id,"BSP map        "))
 	{
 		CPrintf("\"%s\" is not MAP file", filename);
 		free(header);

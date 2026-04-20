@@ -53,13 +53,13 @@ void	FindZoom(int time)
 	cur_fov = mgl.Getf(FOV);
 	switch(zoom)
 	{
-	case	0:	//	нет zoom'а
+	case	0:	//	no zoom
 		cur_fov = float(fov + (cur_fov-fov)*pow(0.5, time/64.0));
 		break;
-	case	1:	//	нормальный zoom
+	case	1:	//	normal zoom
 		cur_fov = float(zoomfov + (cur_fov-zoomfov)*pow(0.5, time/64.0));
 		break;
-	case	2:	//	автоматический zoom
+	case	2:	//	automatic zoom
 		vec3_t	a, b;
 		trace_t	trace;
 		float	k, new_fov;
@@ -86,13 +86,13 @@ void	FindZoom(int time)
 }
 void	Move(int time_ms)
 {
-	//	проверка на нахождение в воде
+	//	check if in water
 	vec3_t	new_velocity, rotate_angle;
 	float	time_sec = time_ms*0.001f;
 	int		water = CheckWater(&entity);//InWater(pos);
 	//mgl.DrawString(10,10, 0xFFFFFFFF, "WaterLevel=%d", entity.waterlevel);
 	VectorCopy(vec3_null, new_velocity);
-	//	проверка на нахождение в воде
+	//	check if in water
 	if(can_move)
 	{
 		if(move_right)		new_velocity[0] += side_speed;

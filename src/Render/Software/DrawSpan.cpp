@@ -546,7 +546,7 @@ void	SetSurfaceType(int type)
 }
 
 void	UpdateWaves()
-{//	обновляем волны(для данного времени)
+{//	update waves(for given time)
 	double	temp = time*3.1415/(40*25);
 	double	add_to_temp = 3.1415/32;
 	for (int i=0; i < 256; i++)

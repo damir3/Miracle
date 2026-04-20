@@ -276,7 +276,7 @@ void	DrawSprite(vec3_t pos, bitmap *bitmap, float scale, byte alpha, byte type)
 
 void	Transform3DBitmapsPoints()
 {
-	//	преобразуем координаты
+	//	transform coordinates
 	cur_mark_num ++;
 	for(int i=0; i<numsprites; i++)
 	{
@@ -288,7 +288,7 @@ void	Transform3DBitmapsPoints()
 void	DrawEnts()
 {
 	int		i = num_ents, j, max_num;
-	//	сортируем спрайты и объекты
+	//	sort sprites and objects
 	while(i--)
 	{
 		max_num = j = i;
@@ -304,11 +304,11 @@ void	DrawEnts()
 		switch(vis_ents[max_num].type)
 		{
 		case	1:
-			//	рисуем спрайт
+			//	draw sprite
 			DrawSprite_((sprite_t *) vis_ents[max_num].ent);
 			break;
 		case	2:
-			//	рисуем объект
+			//	draw object
 			break;
 		}
 		if (max_num!=i)	vis_ents[max_num] = vis_ents[i];
@@ -317,14 +317,14 @@ void	DrawEnts()
 void	DrawOtherEnts()
 {
 	num_ents=0;
-	//	находим все спрайты, которые находятся за плоскостью
+	//	find all sprites that are behind the plane
 	for(int i=0; i<numsprites; i++)
 	{
 		if(sprites[i].mark<cur_mark_num)
 		{
 			vis_ents[num_ents].ent = (void *) &sprites[i];
 			vis_ents[num_ents].z = sprites[i].transform_pos[2];
-			vis_ents[num_ents].type = 1;	//	спрайт
+			vis_ents[num_ents].type = 1;	//	sprite
 			sprites[i].mark = cur_mark_num;
 			num_ents++;
 		}
@@ -334,7 +334,7 @@ void	DrawOtherEnts()
 void	FindAndDrawEnts(t_plane *plane)
 {
 	num_ents=0;
-	//	находим все спрайты, которые находятся перед плоскостью
+	//	find all sprites that are in front of the plane
 	for(int i=0; i<numsprites; i++)
 	{
 		if(sprites[i].mark<cur_mark_num)
@@ -342,7 +342,7 @@ void	FindAndDrawEnts(t_plane *plane)
 		{
 			vis_ents[num_ents].ent = (void *) &sprites[i];
 			vis_ents[num_ents].z = sprites[i].transform_pos[2];
-			vis_ents[num_ents].type = 1;	//	спрайт
+			vis_ents[num_ents].type = 1;	//	sprite
 			sprites[i].mark = cur_mark_num;
 			num_ents++;
 		}

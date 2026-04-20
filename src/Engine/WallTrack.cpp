@@ -1,7 +1,7 @@
 /*
 	WallTracks.cpp	Copyright (C) 1998-1999 Damir Sagidullin
 
-	Обрабатывает следы на стенах
+	Processes tracks on walls
 */
 #include	<Stdio.h>
 #include	<Memory.h>

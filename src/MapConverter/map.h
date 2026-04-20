@@ -158,7 +158,7 @@ typedef struct
 
 #define	MIPLEVELS	4
 typedef struct
-{//	текстура
+{//	texture
 	char	name[31];
 	byte	type;
 	ushort	firstlayer;
@@ -212,15 +212,15 @@ typedef struct
 #define	SURF_NODLIGHT			0x20000	// don't dlight even if solid (solid lava, skies)
 
 typedef struct
-{//	источник света (надо переделать)
+{//	light source (needs rework)
 	vector	pos;
 	float	i[3];
-	float	k_min, period;	//	k!=1, если динамический ист. света
+	float	k_min, period;	//	k!=1, if dynamic light source
 	short	sector, flare;
 } light_t;
 
 typedef struct
-{//	формат lightmap'ы
+{//	lightmap format
 	byte	data[128][128][3];
 } lmbank_t;
 

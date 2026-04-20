@@ -6,7 +6,7 @@
 
 typedef struct
 {
-	char	id[16];	// = "Типа меню"
+	char	id[16];	// = "Like menu"
     int		items_ofs, items_len;
 	int		pics_ofs, pics_len;
 } menu_header;

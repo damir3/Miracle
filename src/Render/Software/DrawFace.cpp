@@ -474,7 +474,7 @@ void	DrawFace(int face)
 		DivXDrawFace(face);
 		return;
 	}
-	if(codes_and) return;	//	если полигон вне экрана, то выходим
+	if(codes_and) return;	//	if polygon is off screen, then exit
 	clip_mode = 0;
 
 	n = ClipPoly(n, default_vlist, codes_or, &vlist);

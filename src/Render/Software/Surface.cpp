@@ -14,38 +14,38 @@
 
 #define	MAX_CACHE_SIZE	(1024*1024*4)
 
-//	BSP карта
+//	BSP map
 extern TMap		map;
-//	таблицы цветов (необходимы для создания освещения)
+//	color tables (needed to create lighting)
 extern ushort	red_color_map[256][256];
 extern ushort	green_color_map[256][256];
 extern ushort	blue_color_map[256][256];
 extern int		gamma;
-//	кеш статических текстур
+//	static texture cache
 static char	*cache=NULL;
 static int	*surface_cache[MIPLEVELS];
 static int	cache_begin, cache_end, cur_cache;
-//	используется для динамически освещенных текстур
+//	used for dynamically lit textures
 byte		blank_light[2024];
-//	цвет полигона (если выводится без тектсуры)
+//	polygon color (if rendered without texture)
 byte		stat_r, stat_g, stat_b;
-//	глобальные переменные
+//	global variables
 int			shift, global_step, global_row, lightmap_width;
 t_lightdata	*cur_light;
-//	Для линамическоог освещения
+//	For dynamic lighting
 int				num_dlights=0;
 dynamic_light	*dlights[MAX_NUM_DYNAMIC_LIGHTS];
 ushort		dynamic_texture[0x10000 + ((sizeof(surface_t) + sizeof(texmap))>>1)];
-//	Функции обработкм кеша статических текстур
+//	Static texture cache processing functions
 void	FreeNextSurface ()
-{	//	освобождает из кеша самую раннюю тектуру
+{	//	frees the earliest texture from cache
 	surface_t	*surf = (surface_t *)(cache + cache_begin);
 	surface_cache[surf->mip_level][surf->face] = -1;
 	cache_begin = surf->next_cache;
 }
 
 int		CacheAllocate (int nes_size)
-{	//	выделяет необходимый для текстуры кеш
+{	//	allocates necessary cache for texture
 	nes_size += sizeof(surface_t) + sizeof(texmap);
 	surface_t	*surf = (surface_t *)(cache + cur_cache);
 	int		size;
@@ -81,7 +81,7 @@ int		CacheAllocate (int nes_size)
 	return	cur_cache;
 }
 void	RemakeCache ()
-{	//	создает новый кеш для новой карты
+{	//	creates new cache for new map
 	for (int j=0; j<MIPLEVELS; j++)
 	{
 		surface_cache[j] = (int *)realloc (surface_cache[j], map.numfaces*sizeof(int));
@@ -95,7 +95,7 @@ void	RemakeCache ()
 }
 
 void	RefreshSurfaceCache ()
-{	//	полностью очищает кеш
+{	//	completely clears cache
 	if (map.numfaces)
 	{
 		for (int j=0; j<MIPLEVELS; j++)
@@ -109,7 +109,7 @@ void	RefreshSurfaceCache ()
 }
 
 void	InitCache ()
-{	//	выделяет память под кеш
+{	//	allocates memory for cache
 	cache = (char *)malloc (MAX_CACHE_SIZE);
 	for (int j=0; j<MIPLEVELS; j++)	surface_cache[j] = NULL;
 	map.numfaces = 0;
@@ -150,7 +150,7 @@ void	BuildSurfaceBlock (ushort *out, bitmap *bm, int x, int y)
 
 		v = global_step;
 		if (draw_mode&DRAW_TEXTURED)
-		{	//	если закрашенная текстура
+		{	//	if colored texture
 			while ((v--)>0)
 			{
 				r = r0;
@@ -196,7 +196,7 @@ void	BuildSurfaceBlock (ushort *out, bitmap *bm, int x, int y)
 				b1 += b3;
 			}
 		} else
-		{	//	если незакрашенная текстура
+		{	//	if uncolored texture
 			while (v--)
 			{
 				r = r0;
@@ -226,7 +226,7 @@ void	BuildSurfaceBlock (ushort *out, bitmap *bm, int x, int y)
 			}
 		}
 	} else
-	{	//	если неосвещенная закрашенная тестура
+	{	//	if unlit colored texture
 		v = global_step;
 		while (v--)
 		{
@@ -289,9 +289,9 @@ void	GetTextureMap (texmap *texture, int face, int texnum, float *u, float *v)
 	int		width, height, lightmapsize;
 	bitmap	raw;
 	surface_t	*surf;
-	//	находим нужную текстуру
+	//	find desired texture
 	if ((face_type==2) || (face_type==3))
-	{//	вода или небо
+	{//	water or sky
 		raw.bm	= (char *)map.textures[texnum].offsets[0];
 		raw.width	= map.textures[texnum].width;
 		raw.height	= map.textures[texnum].height;
@@ -307,7 +307,7 @@ void	GetTextureMap (texmap *texture, int face, int texnum, float *u, float *v)
 		stat_g = map.textures[texnum].g;
 		stat_b = map.textures[texnum].b;
 		if (!(draw_mode&DRAW_LIGHT))
-		{	//	если выводим незакрашенный неосвещенниый полигон
+		{	//	if rendering an uncolored unlit polygon
 			face_color = red_color_map[map.faces_consts[face].r>>2][stat_r] +
 						green_color_map[map.faces_consts[face].g>>2][stat_g] +
 						blue_color_map[map.faces_consts[face].b>>2][stat_b];
@@ -321,7 +321,7 @@ void	GetTextureMap (texmap *texture, int face, int texnum, float *u, float *v)
 	}
 
 	if ((face_type==2) || (face_type==3))
-	{	//	если вода, лава или облака
+	{	//	if water, lava or clouds
 		*u = 0;
 		*v = 0;
 		texture->height = raw.height;
@@ -329,7 +329,7 @@ void	GetTextureMap (texmap *texture, int face, int texnum, float *u, float *v)
 		texture->bitmap = (short *)(raw.bm);
 		return;
 	}
-	//	получаем текстурные края полигона
+	//	get texture edges of polygon
 	face_consts	*consts = &map.faces_consts[face];
 	u0 = consts->u0;
 	v0 = consts->v0;
@@ -338,7 +338,7 @@ void	GetTextureMap (texmap *texture, int face, int texnum, float *u, float *v)
 	lightmapsize = (((u1-u0)>>4)+1)*(((v1-v0)>>4)+1)*3;
 
 	if (num_dlights)
-	{	//	если есть динамические источники света
+	{	//	if there are dynamic light sources
 		t_plane *plane = &map.planes[map.faces[face].planenum];
 		float	a[3], b[3], c[3], d[3];
 		float	temp, dist;
@@ -437,7 +437,7 @@ void	GetTextureMap (texmap *texture, int face, int texnum, float *u, float *v)
 	width = texture->width = (u1-u0) >> minmiplevel;
 	height = texture->height = (v1-v0) >> minmiplevel;
 	if (!num_dynamic_ceils)
-	{	//	если текстура не освещена динамическим светом
+	{	//	if texture is not lit by dynamic light
 		int surf_ofs = surface_cache[minmiplevel][face];
 		if (surf_ofs>0)
 		{
@@ -471,7 +471,7 @@ void	GetTextureMap (texmap *texture, int face, int texnum, float *u, float *v)
 		surf = (surface_t *) cache_offset;
 		surf->bm = (texmap *)(cache_offset + sizeof(surface_t));
 	} else
-	{	//	если текстура освещена динамическим светом
+	{	//	if texture is lit by dynamic light
 		texture->bitmap = (short *)(dynamic_texture + sizeof(surface_t) + sizeof(texmap));
 		surf = (surface_t *) dynamic_texture;
 		surf->bm = (texmap *)(dynamic_texture + sizeof(surface_t));

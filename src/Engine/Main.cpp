@@ -85,7 +85,7 @@ void	UpdateFrame()
 		pos[1] = -500;
 		pos[2] = 300;
 		mgl.DrawModel(pos, angle, &mdl, float(sin(rot_angle*2)+3)*0.1875f, 255, 1);
-		//	модель, которая перед глазами
+		//	model that is in front of the eyes
 		/*angle[0] = angle[1] = angle[2] = 0;
 		float	matrix[3];
 		matrix[0] = matrix[2] = 0;
@@ -95,12 +95,12 @@ void	UpdateFrame()
 		pos[1] = cam_position[1] + float(matrix[1]);
 		pos[2] = cam_position[2] + float(matrix[2]);
 		mgl.DrawModel(pos, angle, &mdl, 1, 255);*/
-		//	фича над пирамидой
+		//	feature over the pyramid
 		pos[0] = 0;
 		pos[1] = -3328;
 		pos[2] = 256;
 		mgl.DrawSprite(pos, &sun, float(sin(rot_angle*4)*0.25)+0.75f, 255, 2);
-		//	рендерение всей сцены
+		//	render the entire scene
 		faces_p_s = mgl.RenderWorld(cam_position, cam_angles, c_time);
 		//AddWallTrack(&sun);
 		Move(time1-time3);
@@ -309,7 +309,7 @@ static BOOL	doInit (HINSTANCE hInstance, int nCmdShow)
 {
 	InitExports();
 	InitLogFile("miracle.log");
-	//	Создаем оконное MD приложение
+	//	Create windowed MD application
     WNDCLASS	wc;
     wc.style = CS_HREDRAW | CS_VREDRAW;
     wc.lpfnWndProc = WindowProc;
@@ -347,18 +347,18 @@ static BOOL	doInit (HINSTANCE hInstance, int nCmdShow)
 	bits = mgl.Geti(BPP);
 	ddrawinit = 1;
 	num_video_modes = mgl.GetPosibleVideoModes(video_modes);
-	//	Загружаем необходимые графиеские данные
+	//	Load necessary graphical data
 	InitConsole();
 	mgl.SetBackground(&background);
 	mgl.SetFont(&font);
 	UpdateFrame();
-	//	Создаем консоль (для данного режима)
+	//	Create console (for this mode)
 	MakeConsole();
-	//	Инициализируем команды консоли
+	//	Initialize console commands
 	InitConsoleCommands();
-	//	Bind'им начальное состояние клавиш
+	//	Bind initial key state
 	StartBinds();
-	//	Создаем физическую модель игрока
+	//	Create physical model of the player
 	memset(&entity, 0, sizeof(entity_t));
 	entity.mins[0] = -16;
 	entity.mins[1] = -16;
@@ -366,7 +366,7 @@ static BOOL	doInit (HINSTANCE hInstance, int nCmdShow)
 	entity.maxs[0] = 16;
 	entity.maxs[1] = 16;
 	entity.maxs[2] = 64;
-	//	Выполняем начальный конфигурационный файл
+	//	Execute initial configuration file
 	StartLocalServer();
 	LoadConfig("miracle.cfg");
 	b_time = timeGetTime();

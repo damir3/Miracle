@@ -56,7 +56,7 @@
 
 #define	MAX_MAP_HULLS	4
 typedef struct
-{//	модель (сама карта или дверы, триггеры, платформы и прочее)
+{//	model (the map itself or doors, triggers, platforms, etc.)
 	float	mins[3], maxs[3];
 	float	origin[3];
 	int		headnode[MAX_MAP_HULLS];
@@ -66,7 +66,7 @@ typedef struct
 
 #define	MIPLEVELS		4
 typedef struct miptex_s
-{//	текстура
+{//	texture
 	char	name[32];
 	byte	type;
 	byte	r, g, b;
@@ -75,12 +75,12 @@ typedef struct miptex_s
 } t_texture;
 
 typedef struct
-{//	точка
+{//	point
 	float	point[3];
 } t_vertex;
 
 typedef struct
-{//	уравнение плоскоти
+{//	plane equation
 	float	normal[3];
 	float	dist;
 	byte	type;
@@ -89,7 +89,7 @@ typedef struct
 } plane_t;
 
 typedef struct	wmark_t
-{//	след на стене
+{//	mark on wall
 	ushort	node, tracknum;
 	byte	side, type;
 	vec3_t	u, v, w;
@@ -99,7 +99,7 @@ typedef struct	wmark_t
 } wmark_t;
 
 typedef struct
-{//	узел BSP дерева (плоскость, с полигонами на ней)
+{//	BSP tree node (plane with polygons on it)
 	int		planenum;
 	short	children[2];
 	short	mins[3];
@@ -110,7 +110,7 @@ typedef struct
 } t_node;
 
 typedef struct
-{//	формат узла в файле карты
+{//	node format in map file
 	int		planenum;
 	short	children[2];
 	short	mins[3];
@@ -120,33 +120,33 @@ typedef struct
 } map_node;
 
 typedef struct
-{//	узел BSP дерева, которое используется для просчета
-//	столкновений со стенами карты
+{//	BSP tree node used for calculation
+//	collisions with map walls
 	int		planenum;
 	short	children[2];	// negative numbers are contents
 } t_clipnode;
 
 typedef struct texinfo_s
-{//	информация текстуре и способе ее нанесения на поверхность
+{//	information on texture and its mapping on surface
 	float	vecs[2][4];
 	int		texnum;
 	int		flags;
 } t_texinfo;
 
 typedef struct
-{//	название и тип текстуры (хранится в файле карты)
+{//	name and type of texture (stored in map file)
 	char	type;
 	char	name[32];
 } map_texture;
 
 typedef struct
-{//	грань полигона
+{//	polygon face
 	ushort	v[2];	// vertex numbers
 } t_edge;
 
 #define	MAXLIGHTMAPS	4
 typedef struct
-{//	полигон
+{//	polygon
 	short	planenum;
 	char	side;
 	char	type;
@@ -154,39 +154,39 @@ typedef struct
 	int		firstedge;
 	short	numedges;
 
-	short	texinfo;	//	текстура
-	byte	styles[MAXLIGHTMAPS];	//	надо выкинуть
-	int		lightofs;	//	lightmap'а
+	short	texinfo;	//	texture
+	byte	styles[MAXLIGHTMAPS];	//	needs to be removed
+	int		lightofs;	//	lightmap
 } t_face;
 
-#define	CONTENTS_EMPTY	-1	//	ничего (воздух)
-#define	CONTENTS_SOLID	-2	//	вне карты (стена)
-#define	CONTENTS_WATER	-3	//	вода
-#define	CONTENTS_SLIME	-4	//	что-то вязкое
-#define	CONTENTS_LAVA	-5	//	лава
-#define	CONTENTS_SKY	-6	//	небо???
+#define	CONTENTS_EMPTY	-1	//	nothing (air)
+#define	CONTENTS_SOLID	-2	//	outside the map (wall)
+#define	CONTENTS_WATER	-3	//	water
+#define	CONTENTS_SLIME	-4	//	something viscous
+#define	CONTENTS_LAVA	-5	//	lava
+#define	CONTENTS_SKY	-6	//	sky???
 #define	NUM_AMBIENTS	4
 
 typedef struct
-{//	сектор
-	int		contents;	//	воздух, вода, лава или прочее
-	int		visofs;	//	карта видимости других секторов
+{//	sector
+	int		contents;	//	air, water, lava or other
+	int		visofs;	//	visibility map of other sectors
 
 	short	mins[3];
 	short	maxs[3];
 
 	ushort	firstmarksurface;
 	ushort	nummarksurfaces;
-	ushort	firstportal;	//	надо выкинуть
-	ushort	numportals;		//	надо выкинуть
+	ushort	firstportal;	//	needs to be removed
+	ushort	numportals;		//	needs to be removed
 	ushort	firstlight;
 	ushort	numlights;
 
-	byte	ambient_level[NUM_AMBIENTS];	//	надо выкинуть
+	byte	ambient_level[NUM_AMBIENTS];	//	needs to be removed
 } t_sector;
 
 typedef struct
-{//	портал (надо выкинуть)
+{//	portal (needs removal)
 	short	planenum;
 	short	side;
 	int		sector[2];
@@ -194,10 +194,10 @@ typedef struct
 } t_portal;
 
 typedef struct
-{//	источник света (надо переделать)
+{//	light source (needs rework)
 	vec3_t	pos;
 	float	i[3];
-	float	k_min, period;	//	k!=1, если динамический ист. света
+	float	k_min, period;	//	k!=1, if dynamic light source
 	short	sector, volume_light;
 } t_light;
 
@@ -209,21 +209,21 @@ typedef struct
 
 #define	NUM_HEADER_LUMPS	19
 typedef struct
-{//	заголовок файла карты
+{//	map file header
 	char		id[16];
 	header_lump	lumps[NUM_HEADER_LUMPS];
 } map_header;
 
 typedef struct
-{//	формат lightmap'ы
+{//	lightmap format
 	byte	r;
 	byte	g;
 	byte	b;
 } t_lightdata;
 
 typedef struct
-{//	данные о полигоне, которые просчитываются при загрузке карты
-	byte	r, g, b;	//	средняя освещенность полигона
+{//	polygon data calculated during map loading
+	byte	r, g, b;	//	average polygon illumination
 	int		u0, v0, u1, v1;
 	float	u[3];
 	float	v[3];
@@ -266,7 +266,7 @@ typedef struct
 } s_wall_t;
 
 typedef struct
-{//	информация о портале
+{//	portal information
 	vec3_t	pos;
 	vec3_t	angle;
 	ushort	targetnum;
@@ -359,7 +359,7 @@ extern wmark_t		wallmarks[MAX_NUM_WALLMARKS];
 
 extern int			numtextures;
 extern t_texture	textures[MAX_NUM_TEXTURES];
-//	туман
+//	fog
 extern int			numfogs;
 extern fog_t		fogs[MAX_NUM_FOGS];
 

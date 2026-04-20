@@ -33,7 +33,7 @@ int		CMenu::OpenMenu(char *name)
 	int		size = menupf->ExtractByName("menu.dat", &menu_data);
 	if (size<=0)	return	0;
 	header = (menu_header *)menu_data;
-	if(strcmp(header->id,"Типа меню v1.0b"))
+	if(strcmp(header->id,"Like menu v1.0b"))
 	{
 		CPrintf("\"%s\" is not menu file", name);
 		CloseMenu();

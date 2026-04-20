@@ -19,7 +19,7 @@ void	SetSpanBufSize(int height)
 	span_buf = (TSpanLine *)realloc(span_buf, height*sizeof(TSpanLine));
 }
 void	ClearSpanBuf()
-{//	очищаем span-буфер
+{//	clear span-buffer
 	memset(end1_spans, 0, sizeof(int)*sy_size);
 	memset(end0_spans, 0, sizeof(int)*sy_size);
 }
@@ -55,7 +55,7 @@ void	NewSpan(int span_start, int span_end)
 }
 
 int		ClipSpan(int cur_sy, TSpan *cur_span)
-{// проверка на перекрытие и пересечение спанов
+{// check for span overlap and intersection
 	int	sx_start = cur_span->sx_start;
 	int	sx_end = cur_span->sx_end;
 	int	numspans;

@@ -38,10 +38,10 @@ int		ExtractAllArguments(char *src, int size)
 		if(c=='"')
 		{
 			if(!j)
-			{//	начало
+			{//	start
 				j=1;
 				if(k<2)
-				{//	кол-во слов в строке < 2
+				{//	number of words in string < 2
 					if(k==0)
 					{
 						args[i][0] = args[i][1] = src+1;
@@ -54,7 +54,7 @@ int		ExtractAllArguments(char *src, int size)
 				}
 				k++;
 			} else
-			{//	конец
+			{//	end
 				j=0;
 				*src=0;
 			}
@@ -105,12 +105,12 @@ void	LoadWall()
 		d_wall_t	*ent = &dwalls[numdwalls++];
 		memset(ent, 0, sizeof(d_wall_t));
 		ent->model = modelnum;
-		//	находим сектора, в которых расположена стена
+		//	find sectors where the wall is located
 		ent->first_sector = num_ent_sectors;
 		FindSectors(map.models[0].headnode[0]);
 		ent->num_sectors = num_ent_sectors - ent->first_sector;
 		//CPrintf("Sectors: (%d-%d)", ent->first_sector, num_ent_sectors-1);
-		//	разбираем свойства данной стены
+		//	parse properties of this wall
 		cur_action_script = NULL;
 		for(i=0; i<numargs; i++)
 		{
@@ -128,7 +128,7 @@ void	LoadWall()
 			if(!strcmp(args[i][0],"actions"))
 				cur_action_script = args[i][1];
 		}
-		//	разбираем и компилируем скрипт для данной стены
+		//	parse and compile script for this wall
 		if(cur_action_script==NULL)
 		{
 			CPrintf("Model[%d] script error", modelnum);
@@ -156,7 +156,7 @@ void	LoadWall()
 		s_wall_t	*ent = &swalls[numswalls++];
 		memset(ent, 0, sizeof(s_wall_t));
 		ent->model = modelnum;
-		//	находим сектора, в которых расположена стена
+		//	find sectors where the wall is located
 		ent->first_sector = num_ent_sectors;
 		FindSectors(map.models[0].headnode[0]);
 		ent->num_sectors = num_ent_sectors - ent->first_sector;

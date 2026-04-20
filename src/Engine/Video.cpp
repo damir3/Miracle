@@ -161,27 +161,27 @@ int		LoadGraphics()
 }
 
 /*
-v0.1 - добавлено цветное освещение
-v0.2 - переведено под Direct Draw
-v0.3 - новый формат карты + загрузка текстур из pcx файлов
-v0.4 - добавлена непроходимость через стены
-v0.5 - добавлены консоль и меню
-v0.6 - использование порталов при рендерении
-v0.7 - добавлены объекты
-v0.8 - часть, которая рендерит, помещена в SoftRend.dll
-v0.9 - динамическое освещение
-v0.10 - зеркальные поверхности и многоуровневая прозрачность
-v0.11 - спрайты
-v0.12 - освещение объекта (18.07.99)
-v0.13 - блики (20.07.99)
-v0.14 - переделана непроходимость через стены теперь используются
-clipnode-ы и теперь без глюков(22.07.99)
-v0.15 - разбор entities_data, добавлены двери(31.07.99)
-v0.16 - сделаны порталы(14.08.99)
-v0.17 - теперь порталы и зеркала могут быть динамическими(17.08.99)
-v0.18 - сделаны screen shot'ы(31.08.99)
-v0.19 - трехмерная вода(08.09.99)
-v0.20 - сделана поддержка сети(04.10.99)
-v0.21 - переделан интерфейс SoftRend.Dll(26.10.99)
-v0.22 - реализовано програмное рамытие (как в Unreal'е)
+v0.1 - added colored lighting
+v0.2 - converted to Direct Draw
+v0.3 - new map format + loading textures from pcx files
+v0.4 - added impassability through walls
+v0.5 - added console and menu
+v0.6 - use of portals during rendering
+v0.7 - added objects
+v0.8 - rendering part placed in SoftRend.dll
+v0.9 - dynamic lighting
+v0.10 - mirror surfaces and multi-level transparency
+v0.11 - sprites
+v0.12 - object lighting (18.07.99)
+v0.13 - glares (20.07.99)
+v0.14 - reworked impassability through walls now used
+clipnodes and now bug-free(22.07.99)
+v0.15 - parsing entities_data, added doors(31.07.99)
+v0.16 - portals made(14.08.99)
+v0.17 - now portals and mirrors can be dynamic(17.08.99)
+v0.18 - made screenshots(31.08.99)
+v0.19 - 3D water(08.09.99)
+v0.20 - added network support(04.10.99)
+v0.21 - reworked SoftRend.Dll interface(26.10.99)
+v0.22 - implemented software blur (like in Unreal)
 */

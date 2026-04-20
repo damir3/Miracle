@@ -46,7 +46,7 @@ typedef struct
 } t_vertex;
 
 typedef struct
-{//	уравнение плоскоти
+{//	plane equation
 	float	normal[3];
 	float	dist;
 	byte	type;
@@ -55,7 +55,7 @@ typedef struct
 } t_plane;
 
 typedef struct	wmark_t
-{//	след на стене
+{//	mark on wall
 	ushort	node, tracknum;
 	byte	side, type;
 	vec3_t	u, v, w;
@@ -145,7 +145,7 @@ typedef struct
 {
 	vec3_t	pos;
 	float	i[3];
-	float	k_min, period;	//	k!=1, если динамический ист. света
+	float	k_min, period;	//	k!=1, if dynamic light source
 	short	sector, volume_light;
 } t_light;
 
@@ -171,8 +171,8 @@ typedef struct
 
 
 typedef struct
-{//	данные о полигоне, которые просчитываются при загрузке карты
-	byte	r, g, b;	//	средняя освещенность полигона
+{//	polygon data calculated during map loading
+	byte	r, g, b;	//	average polygon illumination
 	int		u0, v0, u1, v1;
 	float	u[3];
 	float	v[3];

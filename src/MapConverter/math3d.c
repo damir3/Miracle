@@ -46,7 +46,7 @@ void	RotateVector1 (vector vec, vector ang)
 {
 	double	sin_, cos_, angle;
     double	x, y, z;
-	// крен
+	// roll
 	angle = ang[1] * pi / 0x8000;
     sin_ = sin(angle);
 	cos_ = cos(angle);
@@ -54,7 +54,7 @@ void	RotateVector1 (vector vec, vector ang)
 	x = -sin_ * vec[2] + cos_ * vec[0];
 	vec[0] = (float)(x);
 	vec[2] = (float)(z);
-	// тангаж
+	// pitch
 	angle = ang[0] * pi / 0x8000;
 	sin_ = sin(angle);
 	cos_ = cos(angle);
@@ -62,7 +62,7 @@ void	RotateVector1 (vector vec, vector ang)
 	z = -sin_ * vec[1] + cos_ * vec[2];
 	vec[1] = (float)(y);
 	vec[2] = (float)(z);
-	// рыскание
+	// yaw
 	angle = ang[2] * pi / 0x8000;
     sin_ = sin(angle);
 	cos_ = cos(angle);
@@ -76,7 +76,7 @@ void	RotateVector (vector vec, vector ang)
 {
 	double	sin_, cos_, angle;
     double	x, y, z;
-	// рыскание
+	// yaw
 	angle = ang[2] * pi / 0x8000;
     sin_ = sin(angle);
 	cos_ = cos(angle);
@@ -84,7 +84,7 @@ void	RotateVector (vector vec, vector ang)
 	y = -sin_ * vec[0] + cos_ * vec[1];
 	vec[0] = (float)(x);
 	vec[1] = (float)(y);
-	// тангаж
+	// pitch
 	angle = ang[0] * pi / 0x8000;
 	sin_ = sin(angle);
 	cos_ = cos(angle);
@@ -92,7 +92,7 @@ void	RotateVector (vector vec, vector ang)
 	z = -sin_ * vec[1] + cos_ * vec[2];
 	vec[1] = (float)(y);
 	vec[2] = (float)(z);
-	// крен
+	// roll
 	angle = ang[1] * pi / 0x8000;
     sin_ = sin(angle);
 	cos_ = cos(angle);
@@ -121,8 +121,8 @@ void	TransformVector (vector vec, float matrix[3][3])
 }
 
 float	BBoxRadius (vector mins, vector maxs, vector pos)
-{//	наждение радуса области (с центром в данной точке), которая
-//	охватывает bounding box
+{//	finding radius of area (centered at given point) which
+//	encompasses bounding box
 	int		i, j, k;
 	vector	point;
 	float	cur_radius, radius=0;

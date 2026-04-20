@@ -94,7 +94,7 @@ void	DrawDynamicBSPEntity(int num_ent)
 		if(vis_sectors[sector>>3] & (1<<(sector&7)))
 			break;
 	}
-	if(n<0)	return;	//	не виден
+	if(n<0)	return;	//	not visible
 	SaveViewInfo();
 	vec3_t	sub;
 	VectorSubtract(cam_pos, ent->pos, cam_pos);
@@ -117,9 +117,9 @@ void	DrawStaticBSPEntity(int num_ent)
 {
 	s_wall_t	*ent = &map.swalls[num_ent];
 	int		model = ent->model;
-	//	проверка на правильность номер модели
+	//	check for valid model number
 	if(!model || (model>=map.nummodels))	return;
-	//	проверка на frustrum
+	//	frustum check
 	if(!BoxInFrustrum(map.models[model].mins, map.models[model].maxs))	return;
 
 	int		i=ent->first_sector, n=ent->num_sectors;
@@ -129,7 +129,7 @@ void	DrawStaticBSPEntity(int num_ent)
 		if(vis_sectors[sector>>3] & (1<<(sector&7)))
 			break;
 	}
-	if(n<0)		return;	//	не виден
+	if(n<0)		return;	//	not visible
 	cur_ent = -1;
 	RenderEntNode(map.models[model].headnode[0]);
 }

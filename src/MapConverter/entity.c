@@ -42,10 +42,10 @@ int		ExtractAllArguments (char *src, int size)
 		if (c=='"')
 		{
 			if (!j)
-			{//	начало
+			{//	start
 				j=1;
 				if (k<2)
-				{//	кол-во слов в строке < 2
+				{//	number of words in string < 2
 					if (k==0)
 					{
 						args[i][0] = args[i][1] = src+1;
@@ -58,7 +58,7 @@ int		ExtractAllArguments (char *src, int size)
 				}
 				k++;
 			} else
-			{//	конец
+			{//	end
 				j=0;
 				*src=0;
 			}

@@ -9,7 +9,7 @@
 #include	"ScrShot.h"
 #include	"Video.h"
 
-// заголовок TGA-файла
+// TGA file header
 static int	cur_scrshotnum=0;
 static char header[12] = {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0};
 extern char	cur_key_state;

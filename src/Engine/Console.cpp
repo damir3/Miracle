@@ -15,19 +15,19 @@
 #include	"video.h"
 #include	"unpak.h"
 
-//	время открытия и закрытия консоли
+//	console opening and closing time
 #define		CONSOLE_WORK_TIME		500
-//	максимальное кол-во запомненых комманд набранных на консоли
+//	max number of remembered commands typed in console
 #define		MAX_NUM_CACH_COMMANDS	32
-//	максимальное кол-во последних запомненых строк консоли
-//	(надо при перересовке консоли)
+//	max number of recently remembered console lines
+//	(needed when redrawing console)
 #define		MAX_NUM_SAVED_STRING	256
 
 static FILE		*log_file;
 
 static int		numsavedstr=0;
 static fpos_t	savedstrpos[MAX_NUM_SAVED_STRING];
-//	комманды консоли
+//	console commands
 static char		commands[MAX_NUM_CACH_COMMANDS][256];
 static int		num_commands=0, cur_command=0;
 //	converted console string

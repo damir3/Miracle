@@ -33,7 +33,7 @@ extern dynamic_light	*dlights[MAX_NUM_DYNAMIC_LIGHTS];
 
 void	FindNearestDynamicLights(int plane_num, int side)
 {
-	//	ищем ближайшие источники света
+	//	find nearest light sources
 	t_plane	*plane = &map.planes[plane_num];
 	num_dlights = 0;
 	int	i = num_dyn_lights;
@@ -192,14 +192,14 @@ int		MarkVisibleNodes(int node)
 
 void	VisitVisibleSectors()
 {
-	//	ѕомечаем все видимые узлы
+	//	Mark all visible nodes
 	MarkVisibleNodes((int) map.models[0].headnode[0]);
-	//	ѕомечаем все видимые полигоны
+	//	Mark all visible polygons
 	MarkVisibleFaces((int) map.models[0].headnode[0]);
 }
 
 int		FindSector(vec3_t pos)
-{//	находим сектор, в котором расположена камера
+{//	find sector where camera is located
 	int	n = map.models[0].headnode[0];
 	while (n >= 0)
 	{
@@ -211,7 +211,7 @@ int		FindSector(vec3_t pos)
 
 int		FindVisibleSectors(vec3_t pos)
 {
-	//	Ќаходим сектор в котором находитс€ камера
+	//	Find sector where the camera is located
 	int		sector = FindSector(pos);
     int		v = map.sectors[sector].visofs;
 	vis_sectors = (char *)map.vismap + v;
@@ -228,8 +228,8 @@ void	SetRenderMap(TMap *render_map)
 	RemakeCache();
 }
 void	AddDynamicLight(vec3_t pos, float r, float g, float b)
-{	//	добавление в сцену динаического источника света
-	//	(необходимо добавл€ть дл€ каждого кадра перед рендерингом)
+{	//	adding dynamic light source to scene
+	//	(must be added for each frame before rendering)
 	if(num_dyn_lights<MAX_NUM_DYNAMIC_LIGHTS)
 	{
 		VectorCopy(pos, dyn_lights[num_dyn_lights].pos);
@@ -243,7 +243,7 @@ void	AddDynamicLight(vec3_t pos, float r, float g, float b)
 }
 int		first_num_trans_faces, num_trans_faces;
 int		trans_faces[512];
-//	прорисовка объектов, спрайтов и воды в определенном пор€дке
+//	render of objects, sprites and water in a specific order
 void	DrawObjectsAndWater()
 {
 	mode = 3;
@@ -268,7 +268,7 @@ void	DrawObjectsAndWater()
 	DrawOtherEnts();
 }
 extern int		sx_min, sx_max, sy_min, sy_max;
-//	прорисовка всей сцены
+//	render of the entire scene
 int		RenderWorld(vec3_t view_pos, vec3_t angle, int cur_time)
 {
 	if(!map.map_already_loaded)	return	0;
@@ -285,12 +285,12 @@ int		RenderWorld(vec3_t view_pos, vec3_t angle, int cur_time)
 	Clear_VS(0);
 	int		sector = FindVisibleSectors(cam_pos);
 	//if((!n) || (view_size<100))
-	DrawDynamicEntities();	//	рисуем динамические предметы
+	DrawDynamicEntities();	//	draw dynamic items
 
-	//	рендерим сцену (без обьектов и прозрачных поверхностей)
+	//	render scene (without objects and transparent surfaces)
 	mode = 0;
 	MoveEnd0End1();
-	VisitVisibleSectors();	//	находим видимые сектора
+	VisitVisibleSectors();	//	find visible sectors
 	RenderNode((int) map.models[0].headnode[0]);
 
 	DrawStaticEntities();

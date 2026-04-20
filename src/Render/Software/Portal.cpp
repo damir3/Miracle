@@ -58,16 +58,16 @@ void	DrawPortal (int face)
 
 	num_clip_planes = 0;
 	for(i=0, j=numedges-1; i<numedges; j=i++)
-	{//	пропускаем, если ребро портала выходит за экран
+	{//	skip if portal edge goes off screen
 		if((portal_points[i].ccodes & portal_points[j].ccodes) & CC_BEHIND)	continue;
 		CrossProduct (portal_points[j].p, portal_points[i].p, clip_plane.normal);
 		clip_plane.dist = 0;
 		AddClipPlane(&clip_plane);
 	}
-	//	сохраняем предыдущие параметры камеры
+	//	save previous camera parameters
 	SaveViewInfo();
 	cur_mode = mode;
-	//	задаем новые параметры камеры
+	//	set new camera parameters
 	target = map.i_portals[num_prt].targetnum;
 	if((target>=0) && (target<map.num_i_portals))
 	{
@@ -134,9 +134,9 @@ void	DrawMirror(int face)
 	point_3d	portal_points[64];
 
 	if(mirror || portal)	return;
-	//	сохраняем предыдущие параметры камеры
+	//	save previous camera parameters
 	SaveViewInfo();
-	//	задаем новые параметры камеры
+	//	set new camera parameters
 	VectorAddScale (cam_pos, plane->normal, -2*DistToCamera(plane), cam_pos);
 	for(i=0; i<3; i++)
 	{
@@ -176,7 +176,7 @@ void	DrawMirror(int face)
 		SaveSpanBuf();
 		num_clip_planes = 0;
 		for(i=0, j=numedges-1; i<numedges; j=i++)
-		{//	пропускаем, если ребро портала выходит за экран
+		{//	skip if portal edge goes off screen
 			if((portal_points[i].ccodes & portal_points[j].ccodes) & CC_BEHIND)	continue;
 			CrossProduct (portal_points[i].p, portal_points[j].p, clip_plane.normal);
 			clip_plane.dist = 0;
@@ -195,7 +195,7 @@ void	DrawMirror(int face)
 
 		DrawStaticEntities();
 		DrawObjectsAndWater();
-		//	восстанавливаем предыдущие параметры камеры
+		//	restore previous camera parameters
 		num_trans_faces = first_num_trans_faces;
 		first_num_trans_faces = 0;
 		RestoreSpanBuf();
@@ -224,9 +224,9 @@ void	DrawDynamicMirror(int face)
 
 	if(mirror || portal)	return;
 	d_wall_t	*ent = &map.dwalls[cur_ent];
-	//	сохраняем предыдущие параметры камеры
+	//	save previous camera parameters
 	SaveViewInfo();
-	//	задаем новые параметры камеры
+	//	set new camera parameters
 	VectorAddScale (cam_pos, plane->normal, -2*DistToCamera(plane), cam_pos);
 	for(i=0; i<3; i++)
 	{
@@ -264,7 +264,7 @@ void	DrawDynamicMirror(int face)
 		VectorAdd (center, ent->pos, center);
 		num_clip_planes = 0;
 		for(i=0, j=numedges-1; i<numedges; j=i++)
-		{//	пропускаем, если ребро портала выходит за экран
+		{//	skip if portal edge goes off screen
 			if((portal_points[i].ccodes&portal_points[j].ccodes)&CC_BEHIND)	continue;
 			CrossProduct (portal_points[i].p, portal_points[j].p, clip_plane.normal);
 			clip_plane.dist = 0;
@@ -308,7 +308,7 @@ void	DrawDynamicMirror(int face)
 
 		DrawStaticEntities();
 		DrawObjectsAndWater();
-		//	восстанавливаем предыдущие параметры камеры
+		//	restore previous camera parameters
 		num_trans_faces = first_num_trans_faces;
 		first_num_trans_faces = 0;
 		RestoreSpanBuf();

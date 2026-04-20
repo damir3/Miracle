@@ -68,7 +68,7 @@ int		LoadModel(model3d_t *model, char *name)
 	}*/
 
 	free(buf);
-	//	Находим радиус объекта
+	//	Find object radius
 	float	radius;
 	model->radius = 0;
 	vec3_t	mins, maxs;
@@ -87,7 +87,7 @@ int		LoadModel(model3d_t *model, char *name)
 		}
 	}
 	model->radius = float(sqrt(model->radius));
-	//	Находим вектора нормалей в точках (для освещения)
+	//	Find normal vectors at points (for lighting)
 	int		*numnormals = (int *)malloc(model->numvertices*sizeof(int));
 	memset(numnormals, 0, model->numvertices*sizeof(int));
 	for(i=0; i<model->numfaces; i++)

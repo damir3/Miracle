@@ -60,7 +60,7 @@ int		DDInit()
 		DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN | DDSCL_ALLOWMODEX);
 	if (err != DD_OK)	return	FALSE;
 
-	//	Перечислить все возможные видео режимы.
+	//	Enumerate all possible video modes.
 	lpDD->EnumDisplayModes(0,NULL,NULL,ModeCallback);
 
 	return	TRUE;
@@ -251,10 +251,10 @@ void	ResetVideoMode(int sx, int sy)
 	memset(screen_row_table, 0, sizeof(int)*MAX_SY_SIZE);
 	for (int i=0, temp=0; i<sy_size; i++, temp += sx_size)	screen_row_table[i] = temp;
 	SetSpanBufSize(sy);
-	//	Считаем параметры камеры для данного режима
+	//	Calculate camera parameters for this mode
 	CalculateCameraParameters();
 	int		bpp = bits;
-	//	Определяем сколько бит на пиксель
+	//	Determine bits per pixel
 	DDSURFACEDESC	ddsd;
 	ddsd.dwSize = sizeof(ddsd);
 	int		hres;
@@ -269,11 +269,11 @@ void	ResetVideoMode(int sx, int sy)
 	lpDDSPrimary->Unlock(NULL);
 	if(bpp!=bits)
 	{
-		//	Создаем карты цветов
+		//	Create color maps
 		CreateColorMap(0);
 		CreateTransparencyMap();
 		CreateRGBColorMap();
-		//	Очищаем кеш
+		//	Clear cache
 		RefreshSurfaceCache();
 	}
 	SetFullClipRectangle();
@@ -301,14 +301,14 @@ int		InitDll(HWND set_hwnd, GameImport *set_gi)
 	if(!set_hwnd || !set_gi)	return	FALSE;
 	hwnd = set_hwnd;
 	gi = *set_gi;
-	//	Инициализация Direct Draw
+	//	Initialize Direct Draw
 	if(!DDInit())	return	FALSE;
 	if(!DDSetMode(640, 480))	return	FALSE;
-	//	Создаем кэш для текстур
+	//	Create texture cache
 	InitCache();
-	//	Инициализируем внутрение данные для данного режима
+	//	Initialize internal data for this mode
 	ResetVideoMode(sx_size, sy_size);
-	//	Инициализируем указатели необходимые для рендеринга
+	//	Initialize pointers necessary for rendering
 	InitDefaultPointList();
 	ddrawinit = 1;
 	bumpmap.bm = phongmap.bm = background.bm = font.bm = NULL;

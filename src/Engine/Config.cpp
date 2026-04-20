@@ -67,7 +67,7 @@ int		GetAllArguments(char *str)
 		} else
 		{
 			if((c==',') || ((j==1) && (num_cargs==1)))
-			{//	следующая подстрока
+			{//	next substring
 				j = 0;
 				*str = 0;
 			}
